@@ -1,0 +1,19 @@
+@mixin button($color: green) {
+  height: 30px;
+  min-width: 30px;
+  padding: 3px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  color: rgba(0,0,0, .7);
+  & .excel__button {
+    font-size: 18px;
+  }
+  &:active, &.active {
+    color: $color;
+  }
+  &:hover {
+    background: #eee;
+    cursor: pointer;
+  }
+}

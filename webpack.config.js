@@ -9,20 +9,6 @@ const isDev = !isProd;
 
 const fileName = `bundle.${isProd ? '[hash].' : ''}`;
 
-const jsLoaders = () => {
-  const loaders = [{
-    loader: {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env']
-      }
-    }
-  }];
-  if (isDev) {
-    loaders.push('eslint-loader');
-  }
-};
-
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
@@ -83,7 +69,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: jsLoaders(),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+          isDev && 'eslint-loader'
+        ],
       },
     ],
   },
