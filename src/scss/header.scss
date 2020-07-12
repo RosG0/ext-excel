@@ -7,7 +7,7 @@
   left: 0;
   width: 100%;
   height: $header-height;
-  padding: 8px 4px 0;
+  padding: $header-padding-v 4px 0;
   display: flex;
   justify-content: space-between;
   .excel__title-input {
@@ -19,11 +19,11 @@
     line-height: 22px;
     outline: none;
 
-    &:focus {
-      border: 2px solid #1a73e8;
-    }
     &:hover {
       border: 1px solid $border-color-default;
+    }
+    &:focus {
+      border: 2px solid #1a73e8;
     }
   }
   .excel__header-buttons {
