@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <title>Ext Excel</title>
+</head>
+<body>
+<div id="app" class="container">
+    <div class="excel">
+        <div class="excel__header">
+            <input class="excel__title-input"
+                   type="text"
+                   value="Новая таблица"/>
+            <div class="excel__header-buttons">
+                <div class="excel__button excel__button-delete">
+                       <span class="material-icons">
+                            delete
+                       </span>
+                </div>
+                <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                            clear
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="excel__toolbar">
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                            format_align_left
+                        </span>
+            </div>
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                            format_align_center
+                        </span>
+            </div>
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                           format_align_right
+                        </span>
+            </div>
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                            format_bold
+                        </span>
+            </div>
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                            format_italic
+                        </span>
+            </div>
+            <div class="excel__button excel__button-exit">
+                        <span class="material-icons">
+                           format_underlined
+                        </span>
+            </div>
+        </div>
+        <div class="excel__formula">
+            <div class="excel__formula-info">f(x)</div>
+            <div class="excel__formula-input" contenteditable="true" spellcheck="false"></div>
+        </div>
+        <div class="excel__table">
+            <div class="excel__table-row">
+                <div class="excel__table-row-info"></div>
+                <div class="excel__table-row-data">
+                    <div class="excel__table-column">
+                        A
+                    </div>
+                    <div class="excel__table-column">
+                        B
+                    </div>
+                    <div class="excel__table-column">
+                        C
+                    </div>
+                </div>
+            </div>
+            <div class="excel__table-row">
+                <div class="excel__table-row-info">
+                    1
+                </div>
+                <div class="excel__table-row-data">
+                    <div class="cell cell_selected">1</div>
+                    <div class="cell">2</div>
+                    <div class="cell">3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
