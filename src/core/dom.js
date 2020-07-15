@@ -27,6 +27,31 @@ class Dom {
     return this;
   }
 
+  closest(selector) {
+    return $(this._element.closest(selector));
+  }
+
+  getCoords() {
+    return this._element.getBoundingClientRect();
+  }
+
+  css(style, value= null) {
+    if (typeof style === 'string' && value) {
+      this._element.style[style] = value;
+    } else if (typeof style === 'object') {
+      Object.keys(style).forEach((styleName) => {
+        this._element.style[styleName] = style[styleName];
+      });
+    }
+  }
+
+  getData(field) {
+    return this._element.dataset[field];
+  }
+  findAll(selector) {
+    return this._element.querySelectorAll(selector);
+  }
+
   on(eventType, callback) {
     this._element.addEventListener(eventType, callback);
   }
