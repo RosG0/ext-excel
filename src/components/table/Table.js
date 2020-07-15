@@ -1,6 +1,6 @@
 import {ExcelComponent} from '@core/ExcelComponent';
 import {createTable} from '@/components/table/table.template';
-import {$} from '@core/dom';
+import {resizeHandler} from '@/components/table/tableResize';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -12,32 +12,12 @@ export class Table extends ExcelComponent {
     });
   }
 
-  omMousedown(event) {
-    let target = event.target;
-    const resizeName = target.dataset.resize;
+  onMousedown(event) {
+    const resizeName = event.target.dataset.resize;
 
     if (resizeName) {
-      target = $(target);
-      const parent = target.closest('[data-type="resizable"]');
-      const coords = parent.getCoords();
-
-      document.onmousemove = (e) => {
-        const dif = e.pageX - coords.right;
-        parent.style.width = (coords.width + dif) + 'px';
-      };
-
-      document.onmouseup = () => {
-        document.onmousemove = null;
-      };
+      resizeHandler(event, this._root);
     }
-  }
-
-  omMousemove() {
-
-  }
-
-  omMouseup() {
-
   }
 
   toHTML() {
