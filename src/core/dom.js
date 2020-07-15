@@ -27,6 +27,17 @@ class Dom {
     return this;
   }
 
+  closest(selector) {
+    return $(this._element.close(selector));
+  }
+
+  getCoords() {
+    return this._element.getBoundingClientRect();
+  }
+  css() {
+
+  }
+
   on(eventType, callback) {
     this._element.addEventListener(eventType, callback);
   }
