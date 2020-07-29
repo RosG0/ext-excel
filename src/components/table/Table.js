@@ -9,6 +9,9 @@ import {
   nextSelector
 } from '@/components/table/tableFunctions';
 import {$} from '@core/dom';
+import * as actions from '@/redux/actions';
+import {defaultStyles} from "@/constants";
+import {parse} from "@core/parse";
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -31,16 +34,31 @@ export class Table extends ExcelComponent {
     this.selectCell(cell);
 
     this._on('formulaTextChanged', (text) => {
-      this._selection.current.text(text);
+      this._selection.current
+        .attr('data-value', text)
+        .text(parse(text));
+      this._updateTextInStore(text);
     });
     this._on('formulaEnter', () => {
       this._selection.current.focus();
     });
+    this._on('styleChanged', (value) => {
+      this._selection.setStyle(value);
+      this._dispatch(actions.applyStyle({
+        value,
+        ids: this._selection.selectedIds;
+      }))
+    });
+  }
+
+  async resizeTable(event) {
+    const data = await resizeHandler(event, this._root);
+    this._dispatch(actions.tableResize(data));
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(event, this._root);
+      this.resizeTable(event);
     } else if (isCell(event)) {
       const target = $(event.target);
       if (event.shiftKey) {
@@ -48,7 +66,8 @@ export class Table extends ExcelComponent {
             .map((id) => this._root.find(`[data-id="${id}"]`));
         this._selection.selectGroup(cells);
       } else {
-        this._selection.select(target);
+        this.selectCell(target);
+        // this._selection.select(target);
       }
     }
     this._emit('tableSelectedCell', $(event.target));
@@ -75,13 +94,22 @@ export class Table extends ExcelComponent {
   selectCell(cell) {
     this._selection.select(cell);
     this._emit('tableSelectedCell', cell);
+    const styles = cell.getStyles(Object.keys(defaultStyles));
+    this._dispatch(actions.changeStyles(styles));
   }
 
   onInput(event) {
-    this._emit('tableCellValueChanged', $(event.target));
+    this._updateTextInStore($(event.target).text());
+  }
+
+  _updateTextInStore(value) {
+    this._dispatch(actions.changeText({
+      id: this._selection.current.id(),
+      value
+    }));
   }
 
   toHTML() {
-    return createTable(20);
+    return createTable(20, this._store.getState());
   }
 }

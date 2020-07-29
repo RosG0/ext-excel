@@ -35,7 +35,7 @@ class Dom {
     return this._element.getBoundingClientRect();
   }
 
-  css(style, value= null) {
+  css(style, value = null) {
     if (typeof style === 'string' && value) {
       this._element.style[style] = value;
     } else if (typeof style === 'object') {
@@ -45,23 +45,42 @@ class Dom {
     }
   }
 
+  getStyles(style = []) {
+    return style.reduce((res, style) => {
+      res[style] = this._element.style[style];
+    }, {});
+  }
+
+  attr(name, value) {
+    if (value) {
+      this._element.setAttribute(name, value);
+      return this;
+    }
+    return this._element.getAttribute(name);
+  }
+
   getData(field) {
     return this._element.dataset[field];
   }
+
   findAll(selector) {
     return this._element.querySelectorAll(selector);
   }
+
   find(selector) {
     return $(this._element.querySelector(selector));
   }
+
   addClass(className) {
     this._element.classList.add(className);
   }
+
   removeClass(className) {
     this._element.classList.remove(className);
   }
+
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this._element.textContent = text;
       return this;
     } else {
@@ -71,10 +90,12 @@ class Dom {
       return this._element.textContent.trim();
     }
   }
+
   focus() {
     this._element.focus();
     return $(this._element);
   }
+
   id(parse) {
     if (parse) {
       const parsed = this.id().split(':');
