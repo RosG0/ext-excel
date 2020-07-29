@@ -1,0 +1,20 @@
+export function createStore(rootReducer, initState = {}) {
+  let state = rootReducer({...initState}, {type: '__INIT__'}) || {};
+  let listeners = [];
+
+  return {
+    subscribe(fn) {
+      listeners.push(fn);
+      return () => {
+        listeners = listeners.filter((listener) => listener !== fn);
+      };
+    },
+    dispatch(action) {
+      state = rootReducer(state, action);
+      listeners.forEach((listener) => listener(state));
+    },
+    getState() {
+      return JSON.parse(JSON.stringify(state));
+    }
+  };
+}

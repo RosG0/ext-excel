@@ -1,50 +1,45 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {createToolbar} from '@/components/toolbar/toolbar.template';
+import {$} from '@core/dom';
+import {ExcelStateComponent} from '@core/ExcelStateComponent';
+import {defaultStyles} from "@/constants";
 
-export class Toolbar extends ExcelComponent {
+export class Toolbar extends ExcelStateComponent {
   static className = 'excel__toolbar';
 
   constructor(root, options) {
     super(root, {
       name: 'Toolbar',
       listeners: ['click'],
+      subscribe: ['currentStyles'],
       ...options
     });
   }
 
+  prepare() {
+    this.initState(defaultStyles);
+  }
+
+  get template() {
+    return createToolbar(this._state || {});
+  }
+
+  storeChanged(changes) {
+    this.setState(changes.currentStyles);
+  }
+
   onClick(event) {
-    console.log(event.target);
+    const target = $(event.target);
+    if (target.getData('type') === 'button') {
+      const value = JSON.parse(target.getData('value'));
+
+      this._emit('styleChanged', value);
+
+      const key = Object.keys(value)[0];
+      this.setState({[key]: value[key]});
+    }
   }
 
   toHTML() {
-    return '<div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                            format_align_left\n' +
-      '                        </span>\n' +
-      '            </div>\n' +
-      '            <div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                            format_align_center\n' +
-      '                        </span>\n' +
-      '            </div>\n' +
-      '            <div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                           format_align_right\n' +
-      '                        </span>\n' +
-      '            </div>\n' +
-      '            <div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                            format_bold\n' +
-      '                        </span>\n' +
-      '            </div>\n' +
-      '            <div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                            format_italic\n' +
-      '                        </span>\n' +
-      '            </div>\n' +
-      '            <div class="excel__button excel__button-exit">\n' +
-      '                        <span class="material-icons">\n' +
-      '                           format_underlined\n' +
-      '                        </span>\n' +
-      '            </div>';
+    return this.template;
   }
 }

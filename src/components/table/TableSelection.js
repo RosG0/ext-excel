@@ -27,4 +27,11 @@ export default class TableSelection {
     this._group.forEach((element) => element.removeClass(SELECTED_CLASS));
     this._group = [];
   }
+
+  setStyle(styles) {
+    this._group.forEach((cell) => cell.css(styles));
+  }
+  get selectedIds() {
+    return this._group.map((element) => element.id());
+  }
 }
