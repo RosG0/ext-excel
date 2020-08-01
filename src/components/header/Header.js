@@ -24,17 +24,19 @@ export class Header extends ExcelComponent {
     const title = this._store.getState().title || defaultTitle;
     return '       <input class="excel__title-input"\n' +
       '                   type="text"\n' +
-      '                   value="' + title + '}"/>\n' +
+      '                   value="' + title + '"/>\n' +
       '            <div class="excel__header-buttons">\n' +
       '                <div class="excel__button excel__button-delete"' +
       '                     data-button="remove">\n' +
-      '                       <span class="material-icons">\n' +
+      '                       <span class="material-icons"' +
+      '                             data-button="remove">\n' +
       '                            delete\n' +
       '                       </span>\n' +
       '                </div>\n' +
-      '                <div class="excel__button excel__button-exit">\n' +
+      '                <div class="excel__button excel__button-exit"\n' +
       '                     data-button="exit">\n' +
-      '                        <span class="material-icons">\n' +
+      '                        <span class="material-icons"' +
+      '                          data-button="exit">\n' +
       '                            clear\n' +
       '                        </span>\n' +
       '                </div>\n' +

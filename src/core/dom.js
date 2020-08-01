@@ -48,6 +48,7 @@ class Dom {
   getStyles(style = []) {
     return style.reduce((res, style) => {
       res[style] = this._element.style[style];
+      return res;
     }, {});
   }
 

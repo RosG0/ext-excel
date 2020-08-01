@@ -94,6 +94,7 @@ export class Table extends ExcelComponent {
   selectCell(cell) {
     this._selection.select(cell);
     this._emit('tableSelectedCell', cell);
+
     const styles = cell.getStyles(Object.keys(defaultStyles));
     this._dispatch(actions.changeStyles(styles));
   }
