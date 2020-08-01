@@ -1,5 +1,3 @@
-import {defaultStyles} from "@/constants";
-
 export function capitalize(line) {
   if (typeof line !== 'string') {
     return '';
@@ -31,6 +29,7 @@ export function toInlineStyles(styles = {}) {
       .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
       .join(';');
 }
+
 export function debounce(fn, wait) {
   let timeout;
   return function(...args) {
@@ -42,4 +41,12 @@ export function debounce(fn, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
+}
+
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+export function preventDefault(e) {
+  e.preventDefault();
 }

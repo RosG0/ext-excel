@@ -10,8 +10,8 @@ import {
 } from '@/components/table/tableFunctions';
 import {$} from '@core/dom';
 import * as actions from '@/redux/actions';
-import {defaultStyles} from "@/constants";
-import {parse} from "@core/parse";
+import {defaultStyles} from '@/constants';
+import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -35,8 +35,8 @@ export class Table extends ExcelComponent {
 
     this._on('formulaTextChanged', (text) => {
       this._selection.current
-        .attr('data-value', text)
-        .text(parse(text));
+          .attr('data-value', text)
+          .text(parse(text));
       this._updateTextInStore(text);
     });
     this._on('formulaEnter', () => {
@@ -46,8 +46,8 @@ export class Table extends ExcelComponent {
       this._selection.setStyle(value);
       this._dispatch(actions.applyStyle({
         value,
-        ids: this._selection.selectedIds;
-      }))
+        ids: this._selection.selectedIds
+      }));
     });
   }
 

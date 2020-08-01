@@ -1,6 +1,6 @@
-import {toInlineStyles} from "@core/helper";
-import {defaultStyles} from "@/constants";
-import {parse} from "@core/parse";
+import {toInlineStyles} from '@core/helper';
+import {defaultStyles} from '@/constants';
+import {parse} from '@core/parse';
 
 const CODES = {
   A: 65,
@@ -8,6 +8,7 @@ const CODES = {
 };
 const DEFAULT_WIDTH = '120px';
 const DEFAULT_HEIGHT = '24px';
+
 function toCell(state, row) {
   return function(_, col) {
     const id = `${row}:${col}`;
@@ -65,9 +66,11 @@ function toChar(_, index) {
 function getWidth(state, index) {
   return state[index] || DEFAULT_WIDTH;
 }
+
 function getHeight(state, index) {
   return state[index] || DEFAULT_HEIGHT;
 }
+
 function widthFromState(state) {
   return function(col, index) {
     return {
@@ -77,6 +80,7 @@ function widthFromState(state) {
     };
   };
 }
+
 export function createTable(rowCount = 15, state) {
   const colsColumn = CODES.Z - CODES.A + 1;
   const rows = [];
