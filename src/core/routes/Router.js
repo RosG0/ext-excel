@@ -1,4 +1,5 @@
-import {ActiveRoute} from '@core/routes/ActiveRoute';
+import {ActiveRoute} from './ActiveRoute';
+import {$} from '../dom';
 
 export class Router {
   constructor(selector, routes) {
@@ -6,7 +7,7 @@ export class Router {
       throw new Error('Отсутствует селектор для Router');
     }
 
-    this._placeHolder = selector;
+    this._placeHolder = $(selector);
     this._routes = routes;
     this._page = null;
 

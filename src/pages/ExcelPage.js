@@ -1,5 +1,5 @@
 import {Page} from '@core/Page';
-import {createStore} from '@core/createStore';
+import {createStore} from '@core/store/createStore';
 import {debounce, storage} from '@core/helper';
 import {Excel} from '@/components/excel/Excel';
 import {Header} from '@/components/header/Header';
@@ -10,7 +10,7 @@ import {rootReducer} from '@/redux/rootReducer';
 import {normalizeInitialState} from '@/redux/initialState';
 
 function storageName(param) {
-  return `excel${param}`;
+  return `excel:${param}`;
 }
 
 export class ExcelPage extends Page {
@@ -32,7 +32,7 @@ export class ExcelPage extends Page {
       store
     });
 
-    this._excel.getRoot();
+    return this._excel.getRoot();
   }
 
   afterRender() {

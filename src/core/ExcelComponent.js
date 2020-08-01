@@ -10,6 +10,11 @@ export class ExcelComponent extends DomListener {
     this._unsubscribers = [];
 
     this._beforeInit();
+    this.prepare();
+  }
+
+  prepare() {
+
   }
 
   _beforeInit() {
